@@ -1,7 +1,14 @@
 const express = require("express")
 const server = express()
+const path = require("path");
 
+//Conexão com um banco de dados
 const database = require("./database")
+
+//função que pega o conteúdo da requisição (request body) e transforma de texto em um objeto javascript (json)
+//A partir daí podemos manipular o conteúdo javascript
+server.use(express.json());
+
 
 //INSERT DB
 function CreateAluno(request, response) {
@@ -17,7 +24,7 @@ function CreateAluno(request, response) {
     })
 }
 
-//SELECT DB
+//SELECT * DB
 function ListAlunos(request, response) {
     database("alunos").
     then(function (data) {
@@ -35,7 +42,7 @@ function ListAlunos(request, response) {
 }
 
 
-//INSERT DB COM WHERE
+//Select DB COM WHERE
 function GetAlunoByID(request, response) {
     database("alunos").
     where('id_aluno', request.params.id).
@@ -47,8 +54,12 @@ function GetAlunoByID(request, response) {
     })
 
 }
+
+//METHODS REQUEST
 server.post("/alunos", CreateAluno)
 server.get("/alunos", ListAlunos)
 server.get("/alunos/:id", GetAlunoByID)
-
+server.get("/", function (request, response) {
+    res.sendFile(path.join(__dirname, './html/index.html'));
+})
 server.listen(1000)
