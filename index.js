@@ -1,6 +1,9 @@
+'use strict';
+
 const express = require("express")
 const server = express()
 const path = require("path");
+
 
 //Conexão com um banco de dados
 const database = require("./database")
