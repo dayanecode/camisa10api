@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- <script lang="javascript">
+        var nome = "Dayane"
+        console.log("meu nome é :" + nome)
+    </script> -->
+    <title>Cadastro de Alunos</title>
+</head>
+
+<body>
+
+    <form id="cadastroform" method="post">
+
+        <h2>Cadastro de Alunos</h2>
+
+        <input type="text" name="nome" id="nome" placeholder="Nome do Aluno:">
+        <input type="text" name="idade" id="idade" placeholder="Idade:" max="18" maxlength="2">
+        <input type="text" name="responsavel" id="responsavel" placeholder="Responsável:">
+        <select name="categoria" id="categoria">
+            <option value="">Selecione a Categoria</option>
+            <option value="SUB-07">SUB-07</option>
+            <option value="SUB-08">SUB-08</option>
+            <option value="SUB-09">SUB-09</option>
+            <option value="SUB-10">SUB-10</option>
+            <option value="BABY-FUT">BABY-FUT</option>
+            <option value="FORMACAO">FORMAÇÃO</option>
+            <textarea name="observacoes" id="observacoes" cols="20" rows="5" placeholder="Comentários..."></textarea>
+            <input type="button" name="cadastrar" id="cadastrar" value="Cadastrar" onclick="">
+        </select>
+
+    </form>
+
+    <script src="https://unpkg.com/react@18/umd/production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+    <script src="../index.js"></script>
+
+</body>
+
+
+</html>
