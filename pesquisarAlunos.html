@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/style.css">
+    <title>Pesquisa Alunos</title>
+
+    <script>
+        function getAluno(id_aluno) {
+            fetch(`http://localhost:1000/alunos/${id_aluno}`).
+            then(function (data) {
+                data.json().then(function (json) {
+
+                    var nome_aluno = document.getElementById("text_nome_aluno")
+                    nome_aluno.innerHTML = `${JSON.stringify(json,['nome_aluno'])}`
+
+                    var dataNasc = document.getElementById("text_data_nasc")
+                    dataNasc.innerHTML = `${JSON.stringify(json,['data_nasc'])}`
+
+                    var categoria = document.getElementById("text_categoria")
+                    categoria.innerHTML = `${JSON.stringify(json,['categoria'])}`
+
+                    var responsavel = document.getElementById("text_responsavel")
+                    responsavel.innerHTML = `${JSON.stringify(json,['responsavel'])}`
+
+                    document.getElementById("id_aluno").value = ""
+                })
+            })
+        }
+
+        function dispararPesquisa() {
+            var id_aluno = document.getElementById("id_aluno").value
+
+            if (id_aluno !== "") {
+                getAluno(id_aluno)
+            }
+        }
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <h2>Pesquisa Alunos</h2>
+
+    <input type="text" name="id_aluno" id="id_aluno" placeholder="Digite o id_aluno:">
+    <input type="button" name="pesquisarAluno" id="pesquisarAluno" value="Pesquisar" onclick="dispararPesquisa()">
+    <div id="text_nome_aluno">Nome do Aluno: </div>
+    <div id="text_data_nasc">Data de Nascimento: </div>
+    <div id="text_categoria">Categoria: </div>
+    <div id="text_responsavel">Responsavel: </div>
+    </select>
+
+
+
+    <!-- <script src="./index.js"> </script> -->
+
+</body>
+
+</html>
