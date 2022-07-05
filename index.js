@@ -18,7 +18,6 @@ routerPesquisar.get("/", function (request, response) {
 
 server.use('/PESQUISAR', routerPesquisar)
 
-//------------------------------------------------------------------------------------------------
 
 //RENDERIZAR Página de Cadastro
 routerCadastrar.get("/", function (request, response) {
@@ -37,12 +36,13 @@ server.use(express.static("public"))
 
 //===============================================================================================
 
-//função que pega o conteúdo da requisição (request body) e transforma de texto em um objeto javascript (json)
-//A partir daí podemos manipular o conteúdo javascript
 server.use(express.json());
-
 //INSERT DB
 function CreateAluno(request, response) {
+    console.log(request);
+
+    // let json_data = JSON.parse(request.body);
+
     database("ALUNOS").
     insert(request.body).
     then(function (data) {
