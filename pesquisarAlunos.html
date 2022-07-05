@@ -9,8 +9,8 @@
     <title>Pesquisa Alunos</title>
 
     <script>
-        function getAluno(id_aluno) {
-            fetch(`http://localhost:1000/alunos/${id_aluno}`).
+        function getAluno(id) {
+            fetch(`http://localhost:1000/alunos/${id}`).
             then(function (data) {
                 data.json().then(function (json) {
 
@@ -26,16 +26,16 @@
                     var responsavel = document.getElementById("text_responsavel")
                     responsavel.innerHTML = `${JSON.stringify(json,['responsavel'])}`
 
-                    document.getElementById("id_aluno").value = ""
+                    document.getElementById("id").value = ""
                 })
             })
         }
 
         function dispararPesquisa() {
-            var id_aluno = document.getElementById("id_aluno").value
+            var id = document.getElementById("id").value
 
-            if (id_aluno !== "") {
-                getAluno(id_aluno)
+            if (id !== "") {
+                getAluno(id)
             }
         }
     </script>
@@ -48,7 +48,7 @@
 
     <h2>Pesquisa Alunos</h2>
 
-    <input type="text" name="id_aluno" id="id_aluno" placeholder="Digite o id_aluno:">
+    <input type="text" name="id" id="id" placeholder="Digite o id:">
     <input type="button" name="pesquisarAluno" id="pesquisarAluno" value="Pesquisar" onclick="dispararPesquisa()">
     <div id="text_nome_aluno">Nome do Aluno: </div>
     <div id="text_data_nasc">Data de Nascimento: </div>
