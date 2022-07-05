@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/style.css">
+    <title>Cadastro de Alunos</title>
+
+    <script>
+
+        function enviarPost (url, body) {
+            console.log(body)
+            var request = new XMLHttpRequest()
+            request.open("POST", url, true)
+            // Envia a informação do cabeçalho junto com a requisição.
+            request.setRequestHeader("Content-Type", "application/json")
+            
+
+            
+            request.onreadystatechange = function() { // Chama a função quando o estado mudar.
+                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    // Requisição finalizada. Faça o processamento aqui.
+                  }
+            }
+
+            
+            request.send(JSON.stringify(body))  
+            
+            //função anônima para indicar que o Post foi enviado e voltou
+            request.onload = function () {
+                console.log(this.responseText)
+            }        
+            //Printar na tela o conteúdo retornado para ser aproveitado em outro lugar   
+            return request.responseText
+            
+        }
+
+        function cadastrarAluno() {
+        event.preventDefault()
+        
+         var url = "http://localhost:1000/alunos"
+
+         var nome_aluno = document.getElementById("nome_aluno").value
+         var data_nasc = document.getElementById("data_nasc").value
+         var idade = document.getElementById("idade").value
+         var rg = document.getElementById("rg").value
+         var cpf = document.getElementById("cpf").value
+         var responsavel = document.getElementById("responsavel").value
+         var telefone = document.getElementById("telefone").value
+         var categoria = document.getElementById("categoria").value
+         var observacoes = document.getElementById("observacoes").value
+         
+        //  var body = {nome_aluno, data_nasc, idade, rg, cpf, responsavel, telefone, categoria, observacoes}           
+          
+        var bodyObj = {
+            "nome_aluno": nome_aluno,
+            "data_nasc": data_nasc,
+            "idade": idade,
+            "rg": rg,
+            "cpf": cpf,
+            "responsavel": responsavel,
+            "telefone": telefone,
+            "categoria": categoria,
+            "observacoes": observacoes}        
+            
+            var body = JSON.stringify(bodyObj)
+
+            console.log(body)
+            enviarPost(url, body)
+        
+    }    
+        
+        </script>
+
+
+
+</head>
+
+<body>
+    <!-- <form id="cadastroform" method="post" action="http://localhost:1000/alunos">         -->
+        <form onsubmit="CadastrarAluno()" id="cadastroform" method="post" action="http://localhost:1000/alunos">
+        <h2>Cadastro de Alunos</h2>
+
+        <input type="text" name="nome_aluno" id="nome_aluno" placeholder="Nome do Aluno:"> <br>
+        <input type="date" name="data_nasc" id="data_nasc"> <br>
+        <input type="text" name="idade" id="idade" placeholder="Idade:" max="18" maxlength="2"> <br>
+        <input type="text" name="rg" id="rg" placeholder="RG:" maxlength="9"> <br>
+        <input type="text" name="cpf" id="cpf" placeholder="CPF:" maxlength="11"> <br>
+        <input type="text" name="responsavel" id="responsavel" placeholder="Responsável:"> <br>
+        <input type="tel" name="telefone" id="telefone" placeholder="Telefone:" minlength="11" maxlength="11"> <br>
+        <select name="categoria" id="categoria"> <br>
+            <option value="">Selecione a Categoria</option> <br>
+            <option value="SUB-07">SUB-07</option> <br>
+            <option value="SUB-08">SUB-08</option> <br>
+            <option value="SUB-09">SUB-09</option> <br>
+            <option value="SUB-10">SUB-10</option> <br>
+            <option value="BABY-FUT">BABY-FUT</option> <br>
+            <option value="FORMACAO">FORMAÇÃO</option> <br>
+            <input type="submit" name="cadastrar" id="cadastrar" value="Cadastrar"> <br>
+            <!-- <input type="submit" name="cadastrar" id="cadastrar" value="Cadastrar" onclick="cadastrarAluno()"> <br> -->
+            <textarea name="observacoes" id="observacoes" cols="20"  rows="5" placeholder="Comentários..."></textarea> <br><br>
+
+        </select>
+    </form>
+
+
+    <script src="../index.js"></script>
+
+</body>
+
+
+</html>
