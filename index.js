@@ -1,21 +1,41 @@
 const express = require("express")
 const server = express()
 const path = require("path");
+const routerPesquisar = express.Router();
+const routerCadastrar = express.Router();
+
 
 //Conexão com um banco de dados
 const database = require("./database")
 
 
+//===============================================================================================
+
+//RENDERIZAR Página de Pesquisa
+routerPesquisar.get("/", function (request, response) {
+    response.sendFile(path.join(__dirname + '/pesquisarAlunos.html'));
+});
+
+server.use('/PESQUISAR', routerPesquisar)
+
+//------------------------------------------------------------------------------------------------
+
+//RENDERIZAR Página de Cadastro
+routerCadastrar.get("/", function (request, response) {
+    response.sendFile(path.join(__dirname + '/cadastrarAlunos.html'));
+});
+
+server.use('/CADASTRAR', routerCadastrar)
+
+//===============================================================================================
+
+
 //static files
 server.use(express.static("public"))
 server.use("/css", express.static(__dirname + "public/style.css"))
+server.use(express.static("public"))
 
-
-//obtendo o formulário HTML
-server.get("/", function (request, response) {
-    response.sendFile(__dirname + "/views/index.html")
-})
-
+//===============================================================================================
 
 //função que pega o conteúdo da requisição (request body) e transforma de texto em um objeto javascript (json)
 //A partir daí podemos manipular o conteúdo javascript
@@ -35,6 +55,8 @@ function CreateAluno(request, response) {
     })
 }
 
+
+server.use(express.json());
 //SELECT * DB
 function ListALUNOS(request, response) {
     database("ALUNOS").
@@ -52,11 +74,11 @@ function ListALUNOS(request, response) {
     })
 }
 
-
+server.use(express.json());
 //Select DB COM WHERE
 function GetAlunoByID(request, response) {
     database("ALUNOS").
-    where('id_aluno', request.params.id).
+    where('id', request.params.id).
     then(function (data) {
         response.json(data)
     }).
@@ -70,7 +92,5 @@ function GetAlunoByID(request, response) {
 server.post("/ALUNOS", CreateAluno)
 server.get("/ALUNOS", ListALUNOS)
 server.get("/ALUNOS/:id", GetAlunoByID)
-// server.get("/", function (request, response) {
-//     res.sendFile(path.join(__dirname, './html/index.html'));
-// })
+
 server.listen(1000)
