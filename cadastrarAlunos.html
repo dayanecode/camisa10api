@@ -52,18 +52,22 @@
          var categoria = document.getElementById("categoria").value
          var observacoes = document.getElementById("observacoes").value
          
-        //  var body = {nome_aluno, data_nasc, idade, rg, cpf, responsavel, telefone, categoria, observacoes}           
           
-        var bodyObj = {
-            "nome_aluno": nome_aluno,
-            "data_nasc": data_nasc,
-            "idade": idade,
-            "rg": rg,
-            "cpf": cpf,
-            "responsavel": responsavel,
-            "telefone": telefone,
-            "categoria": categoria,
-            "observacoes": observacoes}        
+          
+        var bodyObj = [
+            {
+                "id": "default",
+                "nome_aluno": nome_aluno,
+                "data_nasc": data_nasc,
+                "idade": idade,
+                "rg": rg,
+                "cpf": cpf,
+                "responsavel": responsavel,
+                "telefone": telefone,
+                "categoria": categoria,
+                "observacoes": observacoes
+            }
+        ]   
             
             var body = JSON.stringify(bodyObj)
 
