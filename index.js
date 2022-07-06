@@ -4,6 +4,12 @@ const path = require("path");
 const routerPesquisar = express.Router();
 const routerCadastrar = express.Router();
 
+server.set('view engine', 'ejs')
+
+server.get('/home', function (req, res) {
+    res.render("../views/home")
+})
+
 
 //Conexão com um banco de dados
 const database = require("./database")
@@ -28,21 +34,11 @@ server.use('/CADASTRAR', routerCadastrar)
 
 //===============================================================================================
 
-
-//static files
-server.use(express.static("public"))
-server.use("/css", express.static(__dirname + "public/style.css"))
-server.use(express.static("public"))
-
-//===============================================================================================
-
 server.use(express.json());
 //INSERT DB
 function CreateAluno(request, response) {
     console.log(request);
-
     // let json_data = JSON.parse(request.body);
-
     database("ALUNOS").
     insert(request.body).
     then(function (data) {
